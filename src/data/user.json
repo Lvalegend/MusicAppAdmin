@@ -1,0 +1,42 @@
+[
+  {
+    "user_id": 2,
+    "email": "andatdargon@gmail.com",
+    "password": "12378910",
+    "user_name": "Lvalegend",
+    "user_avatar": null,
+    "role": "admin"
+  },
+  {
+    "user_id": 3,
+    "email": "andat123@gmail.com",
+    "password": "12378910",
+    "user_name": "Lvalegend2",
+    "user_avatar": null,
+    "role": "normal"
+  },
+  {
+    "user_id": 4,
+    "email": "andat134@gmail.com",
+    "password": "12378910",
+    "user_name": "Lvalegend3",
+    "user_avatar": null,
+    "role": "normal"
+  },
+  {
+    "user_id": 5,
+    "email": "andat1234@gmail.com",
+    "password": "12378910",
+    "user_name": "Lvalegend4",
+    "user_avatar": null,
+    "role": "normal"
+  },
+  {
+    "user_id": 6,
+    "email": "andat1345@gmail.com",
+    "password": "12378910",
+    "user_name": "Lvalegend5",
+    "user_avatar": null,
+    "role": "normal"
+  }
+]

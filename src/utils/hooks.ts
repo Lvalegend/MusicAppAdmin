@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { useAppDispatch } from '@redux/hooks';
-// import { setDataUser } from '@redux/features/authSlice';
+import { setDataUser } from '@redux/features/authSlice';
 import { getDataFromLocalStorage, KEY_STORAGE } from '../local-storage/config';
 
 export const usePageAuth = () => {
@@ -11,11 +11,10 @@ export const usePageAuth = () => {
 
   useEffect(() => {
     const data = getDataFromLocalStorage(KEY_STORAGE.USER);
-    if (data.role === 'admin') {
-      //   dispatch(setDataUser(data));
+    if (data?.role === 'admin') {
+      dispatch(setDataUser(data));
       router.push('/home');
     } else {
-      // must login to access: router.push("/")
       router.push('/');
     }
   }, [router]);
