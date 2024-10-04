@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Button, Form, Input, message } from 'antd';
+import { Button, ConfigProvider, Form, Input, message } from 'antd';
 
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { authLogin } from '@redux/features/authSlice';
@@ -47,50 +47,66 @@ function LoginPage() {
       <Image
         src="/images/logo.png"
         alt="logo"
-        width={128}
-        height={128}
+        width={256}
+        height={256}
         style={{ marginBottom: 24 }}
       />
-      <Form
-        form={form}
-        layout="vertical"
-        // autoComplete="off" // off - không gọi ý lịch sữ nhập
-        onFinish={(values) => handleLogin(values)}
-      >
-        <Form.Item
-          name="email"
-          label="Email"
-          required
-          rules={[
-            {
-              required: true,
-              whitespace: true,
-              message: 'Email is required'
-            },
-            {
-              type: 'email',
-              message: 'Invalid email'
+      <ConfigProvider
+        theme={{
+          components: {
+            Form: {
+              itemMarginBottom: 32
             }
-          ]}
+          }
+        }}
+      >
+        <Form
+          form={form}
+          layout="vertical"
+          style={{ width: 500 }}
+          // autoComplete="off" // off - không gọi ý lịch sữ nhập
+          onFinish={(values) => handleLogin(values)}
         >
-          <Input placeholder="Email" />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          label="Password"
-          required
-          rules={[{ required: true, message: 'Password is required' }]}
-        >
-          <Input.Password placeholder="Password" />
-        </Form.Item>
-        <div className="flex w-full items-center justify-center">
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Login
-            </Button>
+          <Form.Item
+            name="email"
+            label="Email"
+            required
+            rules={[
+              {
+                required: true,
+                whitespace: true,
+                message: 'Email is required'
+              },
+              {
+                type: 'email',
+                message: 'Invalid email'
+              }
+            ]}
+          >
+            <Input size="large" placeholder="Email" />
           </Form.Item>
-        </div>
-      </Form>
+          <Form.Item
+            name="password"
+            label="Password"
+            required
+            rules={[{ required: true, message: 'Password is required' }]}
+          >
+            <Input.Password size="large" placeholder="Password" />
+          </Form.Item>
+          <div className="">
+            <Form.Item>
+              <Button
+                type="primary"
+                size="large"
+                style={{ width: '100%' }}
+                htmlType="submit"
+              >
+                Login
+              </Button>
+            </Form.Item>
+          </div>
+        </Form>
+      </ConfigProvider>
     </div>
   );
 }
