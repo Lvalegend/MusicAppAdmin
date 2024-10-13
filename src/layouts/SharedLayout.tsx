@@ -8,7 +8,7 @@ function SharedLayout(props: PropsWithChildren) {
   return (
     <Layout className="h-screen">
       <SideMenu />
-      <Content>{children}</Content>
+      <Content className="p-9">{children}</Content>
     </Layout>
   );
 }

@@ -1,6 +1,18 @@
+import axios from 'axios';
 import listUser from '../data/user.json'; // Import dữ liệu giả từ file JSON
 
 export const apiLogin = async (args: { email: string; password: string }) => {
+  const url = `${process.env.API_URL}/login`;
+
+  const { data } = await axios.post(url, args);
+
+  return data ?? {};
+};
+
+export const apiLoginFake = async (args: {
+  email: string;
+  password: string;
+}) => {
   // Kiểm tra thông tin đăng nhập dựa trên dữ liệu giả lập trong `data.json`
   let userData;
   const { email, password } = args;

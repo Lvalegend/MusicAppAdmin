@@ -3,7 +3,7 @@ import {
   removeDataFromLocalStorage,
   saveDataToLocalStorage
 } from '@/src/local-storage/config';
-import { apiLogin } from '@api/auth';
+import { apiLogin, apiLoginFake } from '@api/auth';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export type AuthState = {
@@ -15,10 +15,10 @@ export type AuthState = {
   loginCode: number | null; // 0 - failed, 1 - success, 2 - admin
 };
 
-export const authLogin = createAsyncThunk(
+export const authLoginFake = createAsyncThunk(
   'auth/login',
   async (args: { email: string; password: string }) => {
-    const dataRes = await apiLogin(args);
+    const dataRes = await apiLoginFake(args);
     if (dataRes.status) {
       if (dataRes.data?.role === 'admin') {
         return {
@@ -33,6 +33,24 @@ export const authLogin = createAsyncThunk(
       }
     } else {
       return { ...dataRes.data, loginCode: 0 };
+    }
+  }
+);
+
+export const authLogin = createAsyncThunk(
+  'auth/login',
+  async (args: { email: string; password: string }) => {
+    const dataRes = await apiLogin(args);
+    if (dataRes.status) {
+      return {
+        ...dataRes,
+        loginCode: 1
+      };
+    } else {
+      return {
+        ...dataRes,
+        loginCode: 0
+      };
     }
   }
 );
@@ -65,11 +83,11 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(authLogin.pending, (state) => {
+      .addCase(authLoginFake.pending, (state) => {
         state.loading = true;
         state.error = false;
       })
-      .addCase(authLogin.fulfilled, (state, action: PayloadAction<any>) => {
+      .addCase(authLoginFake.fulfilled, (state, action: PayloadAction<any>) => {
         state.user = action.payload?.data_user;
         state.loginCode = action.payload.loginCode;
         state.token = action.payload.jwt_token;
@@ -77,7 +95,7 @@ const authSlice = createSlice({
         state.error = false;
         saveDataToLocalStorage(KEY_STORAGE.USER, action.payload);
       })
-      .addCase(authLogin.rejected, (state) => {
+      .addCase(authLoginFake.rejected, (state) => {
         state.loading = false;
         state.error = true;
       });

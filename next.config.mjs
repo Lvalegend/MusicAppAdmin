@@ -4,6 +4,9 @@ const nextConfig = {
   swcMinify: true,
   experimental: {
     cssChunking: 'loose' // default
+  },
+  env: {
+    API_URL: 'http://localhost:3000/lvalegend'
   }
 };
 

@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Button, ConfigProvider, Form, Input, message } from 'antd';
 
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
-import { authLogin } from '@redux/features/authSlice';
+import { authLoginFake } from '@redux/features/authSlice';
 
 interface FormFields {
   email: string;
@@ -24,7 +24,7 @@ function LoginPage() {
   const [messageApi, contextHolder] = message.useMessage();
 
   const handleLogin = async (formValues: FormFields) => {
-    dispatch(authLogin(formValues));
+    dispatch(authLoginFake(formValues));
   };
 
   useEffect(() => {
