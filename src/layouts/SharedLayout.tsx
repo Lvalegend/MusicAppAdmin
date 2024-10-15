@@ -12,17 +12,16 @@ import { setDataUser } from '@redux/features/authSlice';
 function SharedLayout(props: PropsWithChildren) {
   const { children } = props;
   const dispatch = useAppDispatch();
-  const { token } = useAppSelector((state) => state.authState);
 
   useEffect(() => {
     (async () => {
       const data = getDataFromLocalStorage(KEY_STORAGE.USER);
       if (data) {
         dispatch(setDataUser(data));
+        dispatch(getUsers({ token: data?.token }));
       }
     })();
-    dispatch(getUsers({ page: 1, token }));
-  }, [token]);
+  }, []);
 
   return (
     <Layout className="h-screen">

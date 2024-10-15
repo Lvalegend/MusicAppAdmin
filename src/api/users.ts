@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { getWithToken } from '@utils/index';
 
-export const apiAllUser = async (args: { page: number; token: string }) => {
-  const { page, token } = args;
-  const url = `${process.env.API_URL}/get-all-user?page=${page}&limit=10`;
+export const apiAllUser = async (args: { token: string }) => {
+  const { token } = args;
+  const url = `${process.env.API_URL}/get-all-user`;
 
   const data = await getWithToken({ url, token });
 

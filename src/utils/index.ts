@@ -70,7 +70,9 @@ export const getWithToken = async ({
     const response = await axios.get(url, {
       headers: {
         // Thêm Authorization header với token
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
+        // Add any value for the header
+        'ngrok-skip-browser-warning': 'any_value'
       }
     });
 

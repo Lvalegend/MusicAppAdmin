@@ -41,16 +41,20 @@ export const authLogin = createAsyncThunk(
   'auth/login',
   async (args: { email: string; password: string }) => {
     const dataRes = await apiLogin(args);
-    if (dataRes.status) {
-      return {
-        ...dataRes,
-        loginCode: 1
-      };
+    if (dataRes.success) {
+      if (dataRes?.role === 'admin') {
+        return {
+          ...dataRes,
+          loginCode: 2
+        };
+      } else {
+        return {
+          ...dataRes,
+          loginCode: 1
+        };
+      }
     } else {
-      return {
-        ...dataRes,
-        loginCode: 0
-      };
+      return { ...dataRes, loginCode: 0 };
     }
   }
 );
@@ -77,6 +81,7 @@ const authSlice = createSlice({
     logout: (state) => {
       state.user = null;
       state.token = '';
+      state.role = '';
       state.loginCode = null;
       removeDataFromLocalStorage(KEY_STORAGE.USER);
     }
@@ -104,9 +109,9 @@ const authSlice = createSlice({
         state.error = false;
       })
       .addCase(authLogin.fulfilled, (state, action: PayloadAction<any>) => {
-        state.user = action.payload?.data_user;
+        state.user = action.payload;
         state.loginCode = action.payload.loginCode;
-        state.token = action.payload.jwt_token;
+        state.token = action.payload.token;
         state.loading = false;
         state.error = false;
         saveDataToLocalStorage(KEY_STORAGE.USER, action.payload);

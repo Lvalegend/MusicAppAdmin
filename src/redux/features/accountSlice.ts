@@ -21,10 +21,10 @@ const initialState: AccountState = {
 
 export const getUsers = createAsyncThunk(
   'users/all',
-  async (args: { page: number; token: string }) => {
-    const { page, token } = args;
-    const dataRes = await apiAllUser({ page, token });
-    if (dataRes.status) {
+  async (args: { token: string }) => {
+    const dataRes = await apiAllUser(args);
+
+    if (dataRes.success) {
       return dataRes.data;
     }
   }
@@ -43,7 +43,7 @@ const accountSlice = createSlice({
       .addCase(getUsers.fulfilled, (state, action: PayloadAction<any>) => {
         state.listAccount.loading = false;
         state.listAccount.error = false;
-        state.listAccount.data = action.payload;
+        state.listAccount.data = action.payload.data;
       })
       .addCase(getUsers.rejected, (state) => {
         state.listAccount.loading = false;
