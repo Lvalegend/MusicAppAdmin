@@ -21,7 +21,7 @@
       "@api/*": ["./src/api/*"],
       "@models/*": ["./src/models/*"],
       "@components/*": ["./src/components/*"],
-      // "@views/*": ["./src/views/*"],
+      "@utils/*": ["./src/utils/*"],
       "@redux/*": ["./src/redux/*"],
       "@/*": ["./*"]
     }

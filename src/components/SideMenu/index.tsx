@@ -6,13 +6,17 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Button, Menu, Tooltip } from 'antd';
 import type { MenuProps } from 'antd';
 import {
+  BarChartOutlined,
+  CommentOutlined,
+  CreditCardOutlined,
   CrownOutlined,
   HomeOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   PoweroffOutlined,
   TeamOutlined,
-  TikTokOutlined
+  TikTokOutlined,
+  UserOutlined
 } from '@ant-design/icons';
 import Sider from 'antd/es/layout/Sider';
 
@@ -34,9 +38,34 @@ const items: MenuItem[] = [
     label: 'Bảng xếp hạng'
   },
   {
+    key: '/singer',
+    icon: <UserOutlined />,
+    label: 'Quản lý ca sỹ'
+  },
+  // {
+  //   key: '/account',
+  //   icon: <TeamOutlined />,
+  //   label: 'Quản lý người dùng'
+  // },
+  {
+    key: '/report',
+    icon: <BarChartOutlined />,
+    label: 'Báo cáo'
+  },
+  {
+    key: '/comment',
+    icon: <CommentOutlined />,
+    label: 'Quản lý bình luận'
+  },
+  {
     key: '/account',
     icon: <TeamOutlined />,
     label: 'Quản lý tài khoản'
+  },
+  {
+    key: '/payment',
+    icon: <CreditCardOutlined />,
+    label: 'Quản lý thanh toán'
   }
 ];
 

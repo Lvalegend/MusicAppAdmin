@@ -16,7 +16,7 @@ export type AuthState = {
 };
 
 export const authLoginFake = createAsyncThunk(
-  'auth/login',
+  'auth/login-fake',
   async (args: { email: string; password: string }) => {
     const dataRes = await apiLoginFake(args);
     if (dataRes.status) {
@@ -96,6 +96,22 @@ const authSlice = createSlice({
         saveDataToLocalStorage(KEY_STORAGE.USER, action.payload);
       })
       .addCase(authLoginFake.rejected, (state) => {
+        state.loading = false;
+        state.error = true;
+      })
+      .addCase(authLogin.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(authLogin.fulfilled, (state, action: PayloadAction<any>) => {
+        state.user = action.payload?.data_user;
+        state.loginCode = action.payload.loginCode;
+        state.token = action.payload.jwt_token;
+        state.loading = false;
+        state.error = false;
+        saveDataToLocalStorage(KEY_STORAGE.USER, action.payload);
+      })
+      .addCase(authLogin.rejected, (state) => {
         state.loading = false;
         state.error = true;
       });
