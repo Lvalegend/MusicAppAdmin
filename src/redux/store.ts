@@ -1,12 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './features/authSlice';
 import accountReducer from './features/accountSlice';
+import songReducer from './features/songSlice';
+import singerReducer from './features/singerSlice';
+import categoryReducer from './features/categorySlice';
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       authState: authReducer,
-      accoutState: accountReducer
+      accoutState: accountReducer,
+      songState: songReducer,
+      singerState: singerReducer,
+      categoryState: categoryReducer
     }
   });
 };

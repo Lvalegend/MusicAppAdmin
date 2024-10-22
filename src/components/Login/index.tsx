@@ -49,6 +49,7 @@ function LoginPage() {
         <div className="flex h-screen flex-col items-center justify-center">
           {contextHolder}
           <Image
+            priority
             src="/images/logo.png"
             alt="logo"
             width={256}

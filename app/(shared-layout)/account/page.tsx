@@ -10,7 +10,12 @@ import {
   Tooltip,
   Typography
 } from 'antd';
-import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import {
+  DeleteOutlined,
+  EditOutlined,
+  LockOutlined,
+  PlusOutlined
+} from '@ant-design/icons';
 import { useAppSelector } from '@redux/hooks';
 import { useRouter } from 'next/navigation';
 
@@ -78,12 +83,12 @@ function Index() {
       width: '15%',
       render: (_, record) => (
         <Space>
-          <Tooltip title="Edit">
+          <Tooltip title="Lock">
             <Button
-              className="edit-btn"
+              className="lock-btn"
               type="primary"
               shape="circle"
-              icon={<EditOutlined />}
+              icon={<LockOutlined />}
               onClick={() => {
                 console.log(record.user_id);
               }}
@@ -118,6 +123,7 @@ function Index() {
           <div className="flex items-center justify-between">
             <Typography.Title level={3}>Quản lý tài khoản</Typography.Title>
             <Button
+              style={{ display: 'none' }} // tạm ẩn, do admin không cần tạo tài khoản người dùng
               type="primary"
               icon={<PlusOutlined />}
               onClick={() => router.push('account/create')}

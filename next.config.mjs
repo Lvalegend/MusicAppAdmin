@@ -9,7 +9,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'd696-14-231-164-7.ngrok-free.app',
+        hostname: '5bd1-14-232-239-60.ngrok-free.app',
         port: '',
         pathname: '/**'
       }
@@ -17,7 +17,7 @@ const nextConfig = {
   },
   env: {
     // API_URL: 'http://localhost:3000/lvalegend',
-    API_URL: 'https://d696-14-231-164-7.ngrok-free.app/lvalegend'
+    API_URL: 'https://5bd1-14-232-239-60.ngrok-free.app/lvalegend'
   }
 };
 
