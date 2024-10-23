@@ -187,7 +187,7 @@ function Index() {
             { required: true, message: 'Bạn phải chọn file nhạc để tải lên' }
           ]}
         >
-          <Upload beforeUpload={beforeUploadAudio}>
+          <Upload beforeUpload={beforeUploadAudio} maxCount={1}>
             <Button type="default" icon={<UploadOutlined />}>
               Upload
             </Button>

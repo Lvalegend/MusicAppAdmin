@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { apiGetListSong, apiUploadSong } from '@api/song';
+import { apiDeleteSong, apiGetListSong, apiUploadSong } from '@api/song';
 import { SongModel } from '@models/Song';
 
 export type SongState = {
@@ -8,6 +8,7 @@ export type SongState = {
   data: SongModel[];
   totalItems: number;
   isCreated: boolean;
+  isDeleted: boolean;
 };
 
 const initialState: SongState = {
@@ -15,7 +16,8 @@ const initialState: SongState = {
   isError: false,
   data: [],
   totalItems: 0,
-  isCreated: false
+  isCreated: false,
+  isDeleted: false
 };
 
 export const getListSong = createAsyncThunk('songs/list', async () => {
@@ -34,6 +36,14 @@ export const addSong = createAsyncThunk(
   }) => {
     const res = await apiUploadSong(args);
     if (res.success) return res.result;
+  }
+);
+
+export const deleteSong = createAsyncThunk(
+  'song/delete',
+  async (song_id: number) => {
+    const res = await apiDeleteSong(song_id);
+    if (res.success) return res;
   }
 );
 
@@ -71,6 +81,21 @@ const songSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.isCreated = false;
+      })
+      .addCase(deleteSong.pending, (state) => {
+        state.isLoading = true;
+        state.isDeleted = false;
+        state.isError = false;
+      })
+      .addCase(deleteSong.fulfilled, (state, action: PayloadAction<any>) => {
+        state.isDeleted = true;
+        state.isLoading = false;
+        state.isError = false;
+      })
+      .addCase(deleteSong.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isDeleted = false;
       });
   }
 });

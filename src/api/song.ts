@@ -37,3 +37,15 @@ export const apiUploadSong = async (args: {
 
   return data ?? {};
 };
+
+export const apiDeleteSong = async (song_id: number) => {
+  const url = `${process.env.API_URL}/`;
+
+  const { data } = await axios.delete(url, {
+    headers: {
+      'ngrok-skip-browser-warning': 'any_value'
+    }
+  });
+
+  return data ?? {};
+};

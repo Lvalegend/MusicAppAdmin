@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import {
@@ -19,11 +20,23 @@ import {
 import dayjs from 'dayjs';
 
 import { SongModel } from '@models/Song';
-import { useAppSelector } from '@redux/hooks';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
+import { getListSong } from '@redux/features/songSlice';
 
 function Index() {
   const router = useRouter();
-  const { data } = useAppSelector((state) => state.songState);
+  const dispatch = useAppDispatch();
+  const { data, isCreated, isDeleted } = useAppSelector(
+    (state) => state.songState
+  );
+
+  useEffect(() => {
+    if (!isCreated) return;
+    else if (!isDeleted) return;
+    else {
+      dispatch(getListSong());
+    }
+  }, [isCreated, isDeleted]);
 
   const columns: TableProps<SongModel>['columns'] = [
     {
@@ -38,6 +51,7 @@ function Index() {
       dataIndex: 'song_image',
       key: 'song_image',
       align: 'center',
+      width: '12.5%',
       render: (value, record) => (
         <Image
           src={
@@ -107,7 +121,9 @@ function Index() {
               type="primary"
               shape="circle"
               icon={<DeleteOutlined />}
-              onClick={() => record.song_id}
+              onClick={() => {
+                console.log(record.song_id);
+              }}
             />
           </Tooltip>
         </Space>
