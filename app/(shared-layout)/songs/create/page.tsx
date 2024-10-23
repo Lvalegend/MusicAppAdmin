@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import type { GetProp, RadioChangeEvent, UploadProps } from 'antd';
@@ -19,7 +19,8 @@ import {
 import { LeftOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 
-import { useAppSelector } from '@redux/hooks';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
+import { addSong } from '@redux/features/songSlice';
 
 type FormFields = {
   song_name: string;
@@ -38,7 +39,9 @@ const getBase64 = (img: FileType, callback: (url: string) => void) => {
 function Index() {
   const [form] = Form.useForm();
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
+  const { isCreated } = useAppSelector((state) => state.songState);
   const { data: listSinger } = useAppSelector((state) => state.singerState);
   const { data: listCategory } = useAppSelector((state) => state.categoryState);
 
@@ -53,9 +56,24 @@ function Index() {
     form.resetFields();
   };
 
-  const handleSubmit = async (values: FormFields) => {
+  useEffect(() => {
+    if (!isCreated) return;
+    else {
+      setLoading(false);
+      router.back();
+    }
+  }, [isCreated]);
+
+  const handleSubmit = async (values: any) => {
     setLoading(true);
-    console.log(values);
+    dispatch(
+      addSong({
+        name: values.song_name,
+        releaseDate: dayjs(values.release_date).format('DD/MM/YYYY'),
+        image: values.image?.file.originFileObj,
+        audio: values.audio.file.originFileObj
+      })
+    );
   };
 
   const beforeUpload = (file: FileType) => {
@@ -162,7 +180,13 @@ function Index() {
             )}
           </Upload>
         </Form.Item>
-        <Form.Item name="audio" label="File nhạc">
+        <Form.Item
+          name="audio"
+          label="File nhạc"
+          rules={[
+            { required: true, message: 'Bạn phải chọn file nhạc để tải lên' }
+          ]}
+        >
           <Upload beforeUpload={beforeUploadAudio}>
             <Button type="default" icon={<UploadOutlined />}>
               Upload

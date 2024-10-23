@@ -32,11 +32,11 @@ const items: MenuItem[] = [
     icon: <TikTokOutlined />,
     label: 'Quản lý bài hát'
   },
-  {
-    key: '/rank',
-    icon: <CrownOutlined />,
-    label: 'Bảng xếp hạng'
-  },
+  // {
+  //   key: '/rank',
+  //   icon: <CrownOutlined />,
+  //   label: 'Bảng xếp hạng'
+  // },
   {
     key: '/singer',
     icon: <UserOutlined />,
@@ -47,11 +47,11 @@ const items: MenuItem[] = [
   //   icon: <TeamOutlined />,
   //   label: 'Quản lý người dùng'
   // },
-  {
-    key: '/report',
-    icon: <BarChartOutlined />,
-    label: 'Báo cáo'
-  },
+  // {
+  //   key: '/report',
+  //   icon: <BarChartOutlined />,
+  //   label: 'Báo cáo'
+  // },
   {
     key: '/comment',
     icon: <CommentOutlined />,
